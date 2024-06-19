@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - 3000:3000
+    command: npm start
+    env_file:
+      - ./backend/.env
+    restart: always
+    volumes:
+      - ./backend:/usr/app/backend
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    restart: always
+    hostname: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: '6k126/o97)Gl'
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 'x0=23]Tg[mlt'
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
