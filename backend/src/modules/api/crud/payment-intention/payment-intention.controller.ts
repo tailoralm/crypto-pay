@@ -1,16 +1,19 @@
 import ICrudController from "../crud.interface";
+import PaymentIntentnionStorage from "../../../../shared/storage/tables/payment-intention.storage";
 
 export default class PaymentIntentionController implements ICrudController {
+    private paymentIntentnionStorage: PaymentIntentnionStorage;
     constructor(private userId: number) {
+        this.paymentIntentnionStorage = new PaymentIntentnionStorage();
         // init the storage
     }
 
     get(id: number) {
-        return null;
+        return this.paymentIntentnionStorage.selectById(id);
     }
 
     getAll(id?: number) {
-        return null;
+        return this.paymentIntentnionStorage.getAll();
     }
 
     insert(data: any) {
@@ -22,6 +25,6 @@ export default class PaymentIntentionController implements ICrudController {
     }
 
     delete(id: number) {
-        return null;
+        return this.paymentIntentnionStorage.updateById(id, { active: 0 });
     }
 }

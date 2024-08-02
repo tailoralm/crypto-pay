@@ -15,6 +15,10 @@ export default class UserStorage extends StorageAbstract {
         table.string('fullname', 255);
         table.string('email', 255);
         table.string('phone', 255);
+        table.string('wallet', 255);
+        table.string('privateKey', 255);
+        table.string('secretKey', 255);
+        table.integer('active', 1).defaultTo(1);
         table.timestamp('createdAt').notNullable().defaultTo(this.knex.fn.now());
       });
   }

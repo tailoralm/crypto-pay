@@ -12,7 +12,7 @@ export default abstract class StorageAbstract {
     return this.knex(this.tableName).insert(data);
   }
 
-  selectById(id: number, columns = '') {
+  public selectById(id: number, columns = '') {
     return this.knex(this.tableName).select(columns).where({id: id}).first();
   }
 
@@ -24,7 +24,7 @@ export default abstract class StorageAbstract {
     return this.knex(this.tableName).select(columns).where({id: id, userId: userId}).first();
   }
 
-  updateById(data: any, id: number) {
+  updateById(id: number, data: any) {
     return this.knex(this.tableName).update(data).where({id: id});
   }
 
