@@ -2,7 +2,7 @@ const API_KEY = 'E6Q1G219Q2GBDF7HG12S43QENFMJI3FF39';
 import Axios from 'axios';
 import {IBlockchainScan, ITransaction, ITransactionToken} from '../blockchain.interface';
 
-export default class EtherScanService implements IBlockchainScan{
+export default class EtherScanService implements IBlockchainScan {
   constructor() {}
 
   async getPrice(): Promise<number> {

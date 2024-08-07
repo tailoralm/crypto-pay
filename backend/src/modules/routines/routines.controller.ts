@@ -1,22 +1,27 @@
 import * as schedule from "node-schedule";
-import SensorMeasureStorage from "../../shared/storage/tables/sensor-measure.storage";
-// import SaveMqttCacheService from "./services/save-mqtt-cache.service";
-import SensorStorage from "../../shared/storage/tables/sensor.storage";
+import WalletStorage from "../../shared/storage/tables/wallet.storage";
+import SearchPaymentsService from "./services/search-payments.service";
+import EtherScanService from "../../shared/services/blockchain/etherscan/etherscan";
+import PaymentIntentionStorage from "../../shared/storage/tables/payment-intention.storage";
 
 export default class RoutinesController {
   private jobs: schedule.Job[] = [];
-  private statusRoomStorage: SensorMeasureStorage;
-  private sensorStorage: SensorStorage;
+  private walletStorage: WalletStorage;
+  private paymentIntention: PaymentIntentionStorage;
+  private etherScanService: EtherScanService;
+  // private searchPayments: SearchPaymentsService;
 
 
   constructor() {
-    this.statusRoomStorage = new SensorMeasureStorage();
-    this.sensorStorage = new SensorStorage();
+    this.walletStorage = new WalletStorage();
+    this.paymentIntention = new PaymentIntentionStorage();
+    this.etherScanService = new EtherScanService();
+    this.createRoutines().then(() => console.log('Routines Running!'));
   }
 
     async createRoutines() {
-      // const saveMqttCacheService = new SaveMqttCacheService(this.sensorStorage, this.statusRoomStorage);
-      // this.jobs.push(...await saveMqttCacheService.run());
+      const searchPayments = new SearchPaymentsService(this.walletStorage, this.paymentIntention, this.etherScanService);
+      this.jobs.push(await searchPayments.run());
     }
 
 

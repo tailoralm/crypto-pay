@@ -6,6 +6,10 @@ export default class UserStorage extends StorageAbstract {
     super( EDatabases.User);
   }
 
+  inactivateUser(userId) {
+    return this.updateById(userId, { active: 0 });
+  }
+
   async createOrUpdateThisDatabaseSchema() {
     await this.createIfNotExists();
     if(!await this.columnExists('username')) // version 1.0
@@ -22,4 +26,16 @@ export default class UserStorage extends StorageAbstract {
         table.timestamp('createdAt').notNullable().defaultTo(this.knex.fn.now());
       });
   }
+}
+
+export interface IUserStorage {
+  username?: string;
+  fullName?: string;
+  email?: string;
+  phone?: string;
+  wallet?: string;
+  privateKey?: string;
+  secretKey?: string;
+  active?: number;
+  createdAt?: number;
 }

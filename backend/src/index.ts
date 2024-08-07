@@ -1,8 +1,5 @@
 import 'dotenv/config';
-import TelegramBot from './modules/telegram-bot/telegram-bot.controller';
-import TuyaController from "./shared/io-connectors/tuya/tuya.controller";
 import DatabaseFactory from "./shared/storage/database.factory";
-import WebhookController from "./shared/io-connectors/webhook/webhook.controller";
 import RoutinesController from "./modules/routines/routines.controller";
 import Routes from "./modules/api/routes";
 

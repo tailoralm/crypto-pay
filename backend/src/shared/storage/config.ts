@@ -3,7 +3,7 @@ export default {
     client: 'mysql2',
     connection: {
       host : 'mysql_db',
-      database: 'mydatabase',
+      database: 'criptopay',
       user:     'user',
       password: process.env.MYSQL_PASSWORD
     },
@@ -19,7 +19,7 @@ export default {
     client: 'mysql2',
     connection: {
       host : 'mysql_db',
-      database: 'mydatabase',
+      database: 'criptopay',
       user:     'user',
       password: process.env.MYSQL_PASSWORD
     },

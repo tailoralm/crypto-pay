@@ -1,35 +1,42 @@
 import StorageAbstract from "../storage.abstract";
 import {EDatabases} from "../database.factory";
 
-export default class PaymentIntentnionStorage extends StorageAbstract {
+export default class PaymentIntentionStorage extends StorageAbstract {
   constructor() {
     super(EDatabases.PaymentIntention);
   }
 
-    updateById(id: number, data: IPaymentIntention) {
+  getIsPending(walletId: number): Promise<IPaymentIntentionStorage[]> {
+      return this.knex(this.tableName).select().where({walletId: walletId, status: 'PENDING'});
+  }
+
+  updateById(id: number, data: IPaymentIntentionStorage) {
       return super.updateById(id, data);
-    }
+  }
 
   async createOrUpdateThisDatabaseSchema() {
     await this.createIfNotExists();
-    if(!await this.columnExists('userId')) // version 1.0
+    if(!await this.columnExists('walletId')) // version 1.0
       await this.knex.schema.alterTable(this.tableName, (table) => {
-        table.integer('userId');
-        table.foreign('userId').references('id').inTable('user');
-        table.float('value', 10, 2).notNullable();
-        table.string('coin', 255).notNullable();
+        table.integer('walletId');
+        table.foreign('walletId').references('id').inTable(EDatabases.Wallet);
+        table.decimal('value', 8,8).notNullable();
+        table.string('status', ).defaultTo('PENDING');
         table.string('description', 255).notNullable();
+        table.timestamp('endDate').notNullable().defaultTo(this.knex.raw('CURRENT_TIMESTAMP + INTERVAL 1 DAY'));
         table.timestamp('createdAt').notNullable().defaultTo(this.knex.fn.now());
       });
   }
 }
 
-export interface IPaymentIntention {
+export type EStatus = 'PAID' | 'PENDING' | 'CANCELED' | 'ERROR';
+
+export interface IPaymentIntentionStorage {
     id?: number;
-    userId?: number;
+    walletId?: number;
     value?: number;
-    contract?: string;
+    status?: EStatus;
     description?: string;
-    active?: number;
-    createdAt?: Date;
+    endDate?: number;
+    createdAt?: number;
 }

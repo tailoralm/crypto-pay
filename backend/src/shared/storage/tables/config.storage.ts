@@ -20,9 +20,9 @@ export default class ConfigStorage extends StorageAbstract {
     // return <number>config.database_version;
   }
 
-  async updateDatabaseVersion(newVersion: number) {
-    this.updateById({database_version: newVersion}, 1);
-  }
+  // async updateDatabaseVersion(newVersion: number) {
+  //   this.updateById(1,{database_version: newVersion});
+  // }
 
 
 }
