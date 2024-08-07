@@ -1,0 +1,28 @@
+<c-card class="mb-4">
+  <c-card-header>
+    User Settings
+  </c-card-header>
+  <c-card-body>
+    <form cForm class="row g-3">
+      <c-col md="12">
+        <label cLabel for="companyName">Company Name (optional)</label>
+        <input cFormControl id="companyName" type="text" />
+      </c-col>
+      <c-col md="6">
+        <label cLabel for="email">Email (optional)</label>
+        <input cFormControl id="email" type="email" placeholder="youremail@gmail.com" />
+      </c-col>
+      <c-col xs="6">
+        <label cLabel for="inputAddress">Phone (optional)</label>
+        <input cFormControl id="inputAddress" placeholder="+55 47 99999-9999" />
+      </c-col>
+      <c-col xs="12">
+        <p>*User information is optional but we recommend to have at least one contact method</p>
+      </c-col>
+      <c-col xs="12">
+        <button cButton type="submit">Save</button>
+      </c-col>
+    </form>
+  </c-card-body>
+</c-card>
+

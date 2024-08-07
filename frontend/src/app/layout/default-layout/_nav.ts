@@ -11,6 +11,27 @@ export const navItems: INavData[] = [
     }
   },
   {
+    name: 'Managemant',
+    title: true
+  },
+  {
+    name: 'Settings',
+    url: '/settings',
+    iconComponent: {name: 'cil-puzzle'},
+    children: [
+      {
+        name: 'General',
+        url: '/settings/general',
+        icon: 'nav-icon-bullet'
+      },
+      {
+        name: 'Wallets',
+        url: '/settings/wallets',
+        icon: 'nav-icon-bullet'
+      },
+    ]
+  },
+  {
     title: true,
     name: 'Theme'
   },

@@ -1,0 +1,32 @@
+<c-card class="mb-4">
+  <c-card-header>
+    Blockchain Settings
+  </c-card-header>
+  <c-card-body>
+    <form cForm class="row g-3">
+      <div formGroupName="blockchainsCheck">
+        <c-form-check>
+          <label cFormCheckLabel for="etherscanToken">EtherScan Token</label>
+          <br/>
+          <input cFormCheckInput formControlName="useEtherscan" id="useEtherscan" type="checkbox" [checked]="checkboxes.useEtherscan" (change)="onChangeCheckbox($event)" />
+          <input cFormControl id="etherscanToken" type="text" placeholder="" [disabled]="!checkboxes.useEtherscan" />
+        </c-form-check>
+        <c-form-check>
+          <label cFormCheckLabel for="solscanToken">SolScan Token</label>
+          <br/>
+          <input cFormCheckInput formControlName="useSolscan" id="useSolscan" type="checkbox" [checked]="checkboxes.useSolscan" (change)="onChangeCheckbox($event)"/>
+          <input cFormControl id="solscanToken" type="text" placeholder="" [disabled]="!checkboxes.useSolscan" />
+        </c-form-check>
+        <c-form-check>
+          <label cFormCheckLabel for="bscscanToken">BSCScan Token</label>
+          <br/>
+          <input cFormCheckInput formControlName="useBscscan" id="useBscscan" type="checkbox" [checked]="checkboxes.useBscscan" (change)="onChangeCheckbox($event)"/>
+          <input cFormControl id="bscscanToken" type="text" placeholder="" [disabled]="!checkboxes.useBscscan" />
+        </c-form-check>
+      </div>
+      <c-col xs="12">
+        <button cButton type="submit">Save</button>
+      </c-col>
+    </form>
+  </c-card-body>
+</c-card>

@@ -63,7 +63,7 @@ export class DashboardComponent implements OnInit {
       period: 'Jun 11, 2021 - Jul 10, 2021',
       payment: 'Mastercard',
       activity: '10 sec ago',
-      avatar: './assets/images/avatars/1.jpg',
+      avatar: './assets/images/avatars/avatar.jpeg',
       status: 'success',
       color: 'success'
     },
