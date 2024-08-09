@@ -1,7 +1,7 @@
 <c-card class="mb-4">
   <c-card-header class="wallets-header">
     Wallets
-    <button cButton color="dark">New</button>
+    <ng-container *ngTemplateOutlet="verticallyCentered" />
   </c-card-header>
   <c-card-body>
     <table cTable [hover]="true" [striped]="true">
@@ -36,3 +36,40 @@
     </table>
   </c-card-body>
 </c-card>
+
+
+<ng-template #verticallyCentered>
+  <button [cModalToggle]="verticallyCenteredModal.id" cButton color="dark">New</button>
+  <c-modal #verticallyCenteredModal alignment="center" id="verticallyCenteredModal">
+    <c-modal-header>
+      <h5 cModalTitle>New Wallet</h5>
+      <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+      <form cForm class="row g-3">
+        <c-col md="4">
+          <label cLabel for="selectBlockchain">Blockchain</label>
+          <select id="selectBlockchain" aria-label="Default select example" cSelect>
+            <option value="ETHER">ETHER</option>
+            <option value="SOL">SOLANA</option>
+            <option value="BSC">BSC</option>
+          </select>
+        </c-col>
+        <c-col md="8">
+          <label cLabel for="description">Description</label>
+          <input cFormControl id="description" type="text" />
+        </c-col>
+        <c-col md="12">
+          <label cLabel for="wallet">Wallet</label>
+          <input cFormControl id="wallet" type="text" placeholder="insert your wallet here" />
+        </c-col>
+      </form>
+    </c-modal-body>
+    <c-modal-footer>
+      <button [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary">
+        Close
+      </button>
+      <button cButton color="primary">Save</button>
+    </c-modal-footer>
+  </c-modal>
+</ng-template>
