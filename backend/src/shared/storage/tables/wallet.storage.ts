@@ -14,13 +14,13 @@ export default class WalletStorage extends StorageAbstract {
     await this.createIfNotExists();
     if(!await this.columnExists('userId')) // version 1.0
       await this.knex.schema.alterTable(this.tableName, (table) => {
-        table.integer('userId');
+        table.integer('userId').unsigned();
         table.foreign('userId').references('id').inTable('user');
         table.string('walletHash', 255);
         table.string('chain', 50);
         table.string('chainHash', 255);
         table.integer('observe', 1).defaultTo(1);
-        table.decimal('value', 8, 10);
+        table.decimal('value', 16, 8);
         table.timestamp('createdAt').notNullable().defaultTo(this.knex.fn.now());
       });
   }

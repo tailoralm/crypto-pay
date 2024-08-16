@@ -18,12 +18,12 @@ export default class PaymentIntentionStorage extends StorageAbstract {
     await this.createIfNotExists();
     if(!await this.columnExists('walletId')) // version 1.0
       await this.knex.schema.alterTable(this.tableName, (table) => {
-        table.integer('walletId');
+        table.integer('walletId').unsigned();
         table.foreign('walletId').references('id').inTable(EDatabases.Wallet);
-        table.decimal('value', 8,8).notNullable();
+        table.decimal('value', 16,8).notNullable();
         table.string('status', ).defaultTo('PENDING');
         table.string('description', 255).notNullable();
-        table.timestamp('endDate').notNullable().defaultTo(this.knex.raw('CURRENT_TIMESTAMP + INTERVAL 1 DAY'));
+        table.timestamp('endDate').notNullable();
         table.timestamp('createdAt').notNullable().defaultTo(this.knex.fn.now());
       });
   }
