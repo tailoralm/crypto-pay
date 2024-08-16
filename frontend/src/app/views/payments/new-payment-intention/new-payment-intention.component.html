@@ -1,1 +1,49 @@
-<p>new-payment-intention works!</p>
+<c-card class="mb-4">
+  <c-card-header>
+    New Payment
+  </c-card-header>
+  <c-card-body>
+    <form cForm class="row g-3" [formGroup]="paymentForm">
+      <c-col md="12">
+        <label cLabel for="description">Description</label>
+        <input cFormControl id="description" type="text" />
+      </c-col>
+      <c-col xs="2">
+        <label cLabel for="blockchain">
+          Blockchain
+        </label>
+        <select cSelect id="blockchain">
+          <option value="1">ETH</option>
+          <option value="2">BSC</option>
+          <option value="3">SOL</option>
+        </select>
+      </c-col>
+      <c-col xs="10">
+        <label cLabel for="wallet">
+          Wallet
+        </label>
+        <select cSelect id="wallet">
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </c-col>
+      <c-col md="2">
+        <label cLabel for="value">Value</label>
+        <input cFormControl id="value" type="text" placeholder="$ 10.00" formControlName="value" (input)="validateValue()" />
+      </c-col>
+      <c-col md="12">
+        <p>*The transfer ID will be the last 6 digits from payment value and will be automatically generated</p>
+      </c-col>
+<!--      <c-col md="3">-->
+<!--        <label cLabel for="expiration">Expiration</label>-->
+<!--        <input cFormControl id="expiration" type="datetime-local" />-->
+<!--      </c-col>-->
+      <c-col xs="12">
+        <button cButton type="submit">Create</button>
+      </c-col>
+
+    </form>
+  </c-card-body>
+</c-card>
+
