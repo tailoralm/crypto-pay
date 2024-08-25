@@ -6,6 +6,7 @@ import {
 } from "@coreui/angular";
 import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {UserSettingsService} from "./user-settings.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @Component({
   selector: 'app-user-settings',
@@ -19,7 +20,7 @@ import {UserSettingsService} from "./user-settings.service";
     ReactiveFormsModule,
     FormLabelDirective,
     FormControlDirective,
-    ButtonDirective
+    ButtonDirective,
   ],
   changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './user-settings.component.html',
