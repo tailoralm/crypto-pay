@@ -1,9 +1,33 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {
+  ButtonDirective,
+  CardBodyComponent,
+  CardComponent,
+  CardHeaderComponent,
+  ColComponent, FormCheckComponent, FormCheckInputDirective, FormCheckLabelDirective,
+  FormControlDirective, FormDirective, FormLabelDirective
+} from "@coreui/angular";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BlockchainSettingsService} from "./blockchain-settings.service";
 
 @Component({
   selector: 'app-blockchain-settings',
+  standalone: true,
+  imports: [
+    ButtonDirective,
+    CardBodyComponent,
+    CardComponent,
+    CardHeaderComponent,
+    ColComponent,
+    FormControlDirective,
+    FormDirective,
+    FormLabelDirective,
+    FormsModule,
+    ReactiveFormsModule,
+    FormCheckComponent,
+    FormCheckInputDirective,
+    FormCheckLabelDirective
+  ],
   templateUrl: './blockchain-settings.component.html',
   styleUrl: './blockchain-settings.component.scss'
 })
