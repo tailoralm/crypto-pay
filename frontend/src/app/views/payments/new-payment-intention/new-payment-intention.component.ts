@@ -4,10 +4,9 @@ import {
   CardBodyComponent,
   CardComponent,
   CardHeaderComponent,
-  ColComponent, FormCheckComponent, FormCheckInputDirective, FormCheckLabelDirective,
-  FormControlDirective, FormDirective, FormLabelDirective, FormSelectDirective, InputGroupTextDirective
+  ColComponent, FormControlDirective, FormDirective, FormLabelDirective, FormSelectDirective,
 } from "@coreui/angular";
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import * as MaskUtils from "../../../shared/utils/masks.utils";
 
 @Component({
@@ -22,14 +21,8 @@ import * as MaskUtils from "../../../shared/utils/masks.utils";
     FormControlDirective,
     FormDirective,
     FormLabelDirective,
-    FormsModule,
-    FormCheckComponent,
-    FormCheckInputDirective,
-    FormCheckLabelDirective,
-    ReactiveFormsModule,
     FormSelectDirective,
-    InputGroupTextDirective,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './new-payment-intention.component.html',
   styleUrl: './new-payment-intention.component.scss'

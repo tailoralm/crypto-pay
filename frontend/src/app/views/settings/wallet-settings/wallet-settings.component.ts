@@ -14,7 +14,6 @@ import {
   TableColorDirective,
   TableDirective
 } from "@coreui/angular";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgTemplateOutlet} from "@angular/common";
 import {WalletSettingsService} from "./wallet-settings.service";
 
@@ -22,28 +21,25 @@ import {WalletSettingsService} from "./wallet-settings.service";
   selector: 'app-wallet-settings',
   standalone: true,
   imports: [
-    TableColorDirective,
-    TableDirective,
-    ButtonDirective,
-    CardBodyComponent,
-    CardComponent,
     CardHeaderComponent,
+    CardBodyComponent,
+    TableDirective,
+    TableColorDirective,
+    ModalToggleDirective,
     ButtonDirective,
-    ColComponent,
-    FormControlDirective,
-    FormDirective,
-    FormLabelDirective,
-    FormsModule,
-    ReactiveFormsModule,
-    NgTemplateOutlet,
-    ButtonCloseDirective,
-    ModalBodyComponent,
     ModalComponent,
+    ModalBodyComponent,
+    ColComponent,
+    FormSelectDirective,
+    FormLabelDirective,
+    FormControlDirective,
     ModalFooterComponent,
     ModalHeaderComponent,
+    CardComponent,
+    ButtonCloseDirective,
     ModalTitleDirective,
-    ModalToggleDirective,
-    FormSelectDirective
+    FormDirective,
+    NgTemplateOutlet
   ],
   templateUrl: './wallet-settings.component.html',
   styleUrl: './wallet-settings.component.scss'

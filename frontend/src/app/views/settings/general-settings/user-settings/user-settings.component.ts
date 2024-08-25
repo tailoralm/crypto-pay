@@ -2,31 +2,24 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {
   ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent,
   ColComponent,
-  FormCheckComponent,
-  FormCheckInputDirective,
-  FormCheckLabelDirective, FormControlDirective, FormDirective, FormLabelDirective, FormSelectDirective
+ FormControlDirective, FormDirective, FormLabelDirective
 } from "@coreui/angular";
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {UserSettingsService} from "./user-settings.service";
 
 @Component({
   selector: 'app-user-settings',
   standalone: true,
   imports: [
-    ButtonDirective,
-    ColComponent,
-    FormCheckComponent,
-    FormCheckInputDirective,
-    FormCheckLabelDirective,
-    FormControlDirective,
-    FormDirective,
-    FormLabelDirective,
-    FormSelectDirective,
-    FormsModule,
-    ReactiveFormsModule,
-    CardBodyComponent,
     CardComponent,
-    CardHeaderComponent
+    CardHeaderComponent,
+    CardBodyComponent,
+    ColComponent,
+    FormDirective,
+    ReactiveFormsModule,
+    FormLabelDirective,
+    FormControlDirective,
+    ButtonDirective
   ],
   changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './user-settings.component.html',

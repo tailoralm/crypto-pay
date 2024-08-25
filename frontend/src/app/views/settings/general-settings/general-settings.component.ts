@@ -7,7 +7,7 @@ import {BlockchainSettingsComponent} from "./blockchain-settings/blockchain-sett
   standalone: true,
   imports: [
     UserSettingsComponent,
-    BlockchainSettingsComponent
+    BlockchainSettingsComponent,
   ],
   templateUrl: './general-settings.component.html',
   styleUrl: './general-settings.component.scss'

@@ -5,9 +5,9 @@ import {
   CardComponent,
   CardHeaderComponent,
   ColComponent, FormCheckComponent, FormCheckInputDirective, FormCheckLabelDirective,
-  FormControlDirective, FormDirective, FormLabelDirective
+  FormControlDirective, FormDirective
 } from "@coreui/angular";
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {BlockchainSettingsService} from "./blockchain-settings.service";
 
 @Component({
@@ -15,18 +15,16 @@ import {BlockchainSettingsService} from "./blockchain-settings.service";
   standalone: true,
   imports: [
     ButtonDirective,
-    CardBodyComponent,
     CardComponent,
     CardHeaderComponent,
+    CardBodyComponent,
     ColComponent,
-    FormControlDirective,
-    FormDirective,
-    FormLabelDirective,
-    FormsModule,
-    ReactiveFormsModule,
     FormCheckComponent,
+    FormDirective,
+    FormCheckLabelDirective,
+    FormControlDirective,
     FormCheckInputDirective,
-    FormCheckLabelDirective
+    ReactiveFormsModule,
   ],
   templateUrl: './blockchain-settings.component.html',
   styleUrl: './blockchain-settings.component.scss'
