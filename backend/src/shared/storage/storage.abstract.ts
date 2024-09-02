@@ -9,6 +9,7 @@ export default abstract class StorageAbstract {
   }
 
   insert(data: any) {
+    delete data['id'];
     return this.knex(this.tableName).insert(data);
   }
 

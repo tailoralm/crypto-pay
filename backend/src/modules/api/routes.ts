@@ -2,6 +2,7 @@ import express from 'express';
 import AuthController from "./auth/auth.controller";
 import PaymentIntention from "./payment-intention/payment-intention.routes";
 import Settings from "./settings/settings.routes";
+import Wallet from "./wallet/wallet.routes";
 
 const app = express();
 
@@ -14,5 +15,6 @@ app.get('/logout', AuthController.logout);
 // CRUD ROUTES
 app.use('/payment-intention', PaymentIntention);
 app.use('/settings', Settings);
+app.use('/wallet', Wallet);
 
 export default app;

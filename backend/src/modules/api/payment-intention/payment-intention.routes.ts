@@ -26,7 +26,15 @@ app.get('/list',  (req: Request, res: Response) => {
 app.put('/:id', (req: Request, res: Response) => {
     try {
         const paymentIntentionController = new PaymentIntentionController(req.userId);
-        paymentIntentionController.update(Number(req.params.id), req.body).then((data) => res.send(data));
+        paymentIntentionController.update(req.body).then((data) => res.send(data));
+    } catch (e) {
+        resError(res, e);
+    }
+});
+app.post('/', (req: Request, res: Response) => {
+    try {
+        const paymentIntentionController = new PaymentIntentionController(req.userId);
+        paymentIntentionController.insert(req.body).then((data) => res.send(data));
     } catch (e) {
         resError(res, e);
     }
