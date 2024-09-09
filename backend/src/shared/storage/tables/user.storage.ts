@@ -10,9 +10,13 @@ export default class UserStorage extends StorageAbstract {
     return this.updateById(userId, { active: 0 });
   }
 
+  insert(data: IUserStorage) {
+    return super.insert(data);
+  }
+
   async createOrUpdateThisDatabaseSchema() {
     await this.createIfNotExists();
-    if(!await this.columnExists('username')) // version 1.0
+    if(!await this.columnExists('username')) {
       await this.knex.schema.alterTable(this.tableName, (table) => {
         table.string('username', 255).notNullable();
         table.string('password', 255).notNullable();
@@ -25,11 +29,15 @@ export default class UserStorage extends StorageAbstract {
         table.integer('active', 1).defaultTo(1);
         table.timestamp('createdAt').notNullable().defaultTo(this.knex.fn.now());
       });
+      await this.insert({ id: 1, username: 'admin', password: 'admin'});
+    }
   }
 }
 
 export interface IUserStorage {
+  id?: number;
   username?: string;
+  password?: string;
   fullName?: string;
   email?: string;
   phone?: string;

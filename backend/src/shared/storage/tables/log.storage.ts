@@ -8,7 +8,7 @@ export default class LogStorage extends StorageAbstract {
 
   async createOrUpdateThisDatabaseSchema() {
     await this.createIfNotExists();
-    if(!await this.columnExists('userId')) // version 1.0
+    if(!await this.columnExists('userId')) {
       await this.knex.schema.alterTable(this.tableName, (table) => {
         table.integer('userId');
         table.foreign('userId').references('id').inTable('user');
@@ -17,5 +17,7 @@ export default class LogStorage extends StorageAbstract {
         table.string('description', 255);
         table.timestamp('createdAt').notNullable().defaultTo(this.knex.fn.now());
       });
+      await this.insert({userId: 1, type: 'info', group: 'system', description: 'Log table created.'});
+    }
   }
 }

@@ -4,6 +4,7 @@ import LogStorage from "./tables/log.storage";
 import UserStorage from "./tables/user.storage";
 import WalletStorage from "./tables/wallet.storage";
 import ProductStorage from "./tables/product.storage";
+import PaymentOnChainStorage from "./tables/payment-on-chain.storage";
 
 export enum EDatabases {
   Config = 'config',
@@ -31,6 +32,8 @@ export default class DatabaseFactory {
         return new ProductStorage();
       case EDatabases.PaymentIntention:
         return new PaymentIntentnionStorage();
+      case EDatabases.PaymentOnChain:
+        return new PaymentOnChainStorage();
 
       // case EDatabases.PaymentIntention:
       //   return new WalletStorage();
@@ -44,7 +47,8 @@ export default class DatabaseFactory {
   static async buildAllDatabases() {
     Object.values(EDatabases).forEach((table: EDatabases) => {
       try {
-        this.getDatabase(table).createOrUpdateThisDatabaseSchema()
+        const database = this.getDatabase(table);
+        database.createOrUpdateThisDatabaseSchema();
       } catch {
         console.error(`Error on creating table: ${table}`)
       }

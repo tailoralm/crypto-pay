@@ -6,8 +6,12 @@ export default class PaymentIntentionStorage extends StorageAbstract {
     super(EDatabases.PaymentIntention);
   }
 
-  getIsPending(walletId: number): Promise<IPaymentIntentionStorage[]> {
-      return this.knex(this.tableName).select().where({walletId: walletId, status: 'PENDING'});
+  async getIsPending(walletId: number): Promise<IPaymentIntentionStorage[]> {
+      return <IPaymentIntentionStorage[]>this.knex(this.tableName).select().where({walletId: walletId, status: 'PENDING'});
+  }
+
+  setAsPaid(id: number) {
+      return this.updateById(id, {status: 'PAID'});
   }
 
   updateById(id: number, data: IPaymentIntentionStorage) {
@@ -21,7 +25,7 @@ export default class PaymentIntentionStorage extends StorageAbstract {
         table.integer('walletId').unsigned();
         table.foreign('walletId').references('id').inTable(EDatabases.Wallet);
         table.decimal('value', 16,8).notNullable();
-        table.string('status', ).defaultTo('PENDING');
+        table.string('status', 255).defaultTo('PENDING');
         table.string('description', 255).notNullable();
         table.timestamp('endDate').notNullable();
         table.timestamp('createdAt').notNullable().defaultTo(this.knex.fn.now());

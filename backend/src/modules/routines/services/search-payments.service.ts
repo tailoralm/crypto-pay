@@ -4,11 +4,12 @@ import EtherScanService from "../../../shared/services/blockchain/etherscan/ethe
 import PaymentIntentionStorage, {
     IPaymentIntentionStorage
 } from "../../../shared/storage/tables/payment-intention.storage";
+import {ITransaction} from "../../../shared/services/blockchain/blockchain.interface";
 
 export default class SearchPaymentsService {
     private walletsToObserve: Promise<IWalletStorage[]>;
     private paymentIntentionOpen: Promise<IPaymentIntentionStorage[]>
-    constructor(private walletStorage: WalletStorage, private paymentIntentionService: PaymentIntentionStorage, private etherScanService: EtherScanService) {
+    constructor(private walletStorage: WalletStorage, private paymentIntentionStorage: PaymentIntentionStorage, private etherScanService: EtherScanService) {
 
     }
 
@@ -25,8 +26,24 @@ export default class SearchPaymentsService {
         const walletsToObserve = await this.walletsToObserve;
 
         for (let wallet of walletsToObserve){
-            const transactions = await this.etherScanService.getTransactionListByTimestamp(wallet.walletHash, nowMinesTwenty, nowTimestamp);
-            // check this transactions with the payment intention
+            const paymentIntentionPending = await this.paymentIntentionStorage.getIsPending(wallet.id);
+            if (paymentIntentionPending.length === 0) continue;
+
+            let transactions: ITransaction[] = [];
+            if(wallet.chain === 'ETH')
+                transactions = await this.etherScanService.getTransactionListByTimestamp(wallet.walletHash, nowMinesTwenty, nowTimestamp);
+
+            if (transactions.length === 0) continue;
+
+            console.log(transactions);
+
+            for (let transaction of transactions){
+                for (let paymentIntention of paymentIntentionPending){
+                    if (transaction.value === paymentIntention.value){
+                        await this.paymentIntentionStorage.setAsPaid(paymentIntention.id);
+                    }
+                }
+            }
         }
     }
 

@@ -7,7 +7,7 @@ export default class WalletStorage extends StorageAbstract {
   }
 
   async getWalletsToObserve(): Promise<IWalletStorage[]> {
-      return this.knex(this.tableName).select().where({observe: 1});
+      return <IWalletStorage[]>this.knex(this.tableName).select().where({observe: 1});
   }
 
   async createOrUpdateThisDatabaseSchema() {
