@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 export default class AuthController {
     static async login(req: Request, res: Response) {
-        return await res.json({ token: '0000' });
+        return await res.json({
+            userId: 1,
+            username: 'admin',
+            token: '0000' 
+        });
     }
 
     static async logout(req: Request, res: Response) {

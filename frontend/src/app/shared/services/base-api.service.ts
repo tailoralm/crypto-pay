@@ -1,44 +1,46 @@
-import {HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import axios, { AxiosRequestConfig } from 'axios';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseApiService {
   protected baseUrl = 'http://localhost:3000';
+  protected axios = axios;
+  protected readonly userDataVar = 'user-data';
 
-  constructor(protected http: HttpClient) {}
-
-  protected getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('authToken');
-
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
+  protected getHeaders(): AxiosRequestConfig {
+    const token = JSON.parse(localStorage.getItem(this.userDataVar) || '{}').token;
+  
+    return {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  }
+  
+  protected async get(endpoint: string) {
+    const response = await axios.get(`${this.baseUrl}/${endpoint}`, this.getHeaders());
+    return response.data;
+  }
+  
+  protected async post(endpoint: string, body: any) {
+    const response = await axios.post(`${this.baseUrl}/${endpoint}`, body, this.getHeaders());
+    return response.data;
+  }
+  
+  protected async put(endpoint: string, body: any) {
+    const response = await axios.put(`${this.baseUrl}/${endpoint}`, body, this.getHeaders());
+    return response.data;
+  }
+  
+  protected async delete(endpoint: string) {
+    const response = await axios.delete(`${this.baseUrl}/${endpoint}`, this.getHeaders());
+    return response.data;
   }
 
-  protected get<T>(endpoint: string) {
-    return this.http.get<T>(`${this.baseUrl}/${endpoint}`, {
-      headers: this.getHeaders(),
-    });
-  }
-
-  protected post<T>(endpoint: string, body: any) {
-    return this.http.post<T>(`${this.baseUrl}/${endpoint}`, body, {
-      headers: this.getHeaders(),
-    });
-  }
-
-  protected put<T>(endpoint: string, body: any) {
-    return this.http.put<T>(`${this.baseUrl}/${endpoint}`, body, {
-      headers: this.getHeaders(),
-    });
-  }
-
-  protected delete<T>(endpoint: string, body: any) {
-    return this.http.delete<T>(`${this.baseUrl}/${endpoint}`, {
-      headers: this.getHeaders(),
-    });
+  protected getUserData() {
+    return JSON.parse(localStorage.getItem(this.userDataVar) || '{}');
   }
 }
