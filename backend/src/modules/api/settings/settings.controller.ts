@@ -21,7 +21,6 @@ export default class SettingsController{
     }
 
     insertWallet(data: IWalletStorage) {
-        delete data['id'];
         data.userId = this.userId;
         return this.walletStorage.insert(data);
     }

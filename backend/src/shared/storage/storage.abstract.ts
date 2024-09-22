@@ -26,6 +26,7 @@ export default abstract class StorageAbstract {
   }
 
   updateById(id: number, data: any) {
+    delete data['id'];
     return this.knex(this.tableName).update(data).where({id: id});
   }
 
