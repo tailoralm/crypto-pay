@@ -2,9 +2,9 @@ export default {
   development: {
     client: 'mysql2',
     connection: {
-      host : 'mysql_db',
-      database: 'criptopay',
-      user:     'user',
+      host : process.env.MYSQL_HOST,
+      database: process.env.MYSQL_DATABASE,
+      user:     process.env.MYSQL_USER,
       password: process.env.MYSQL_PASSWORD
     },
     pool: {
@@ -18,9 +18,9 @@ export default {
   production: {
     client: 'mysql2',
     connection: {
-      host : 'mysql_db',
-      database: 'criptopay',
-      user:     'user',
+      host : process.env.MYSQL_HOST,
+      database: process.env.MYSQL_DATABASE,
+      user:     process.env.MYSQL_USER,
       password: process.env.MYSQL_PASSWORD
     },
     pool: {

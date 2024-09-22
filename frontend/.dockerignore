@@ -1,9 +1,17 @@
-node_modules
-**/dist
+# Ignore node modules and build directories
+node_modules/
+dist/
+
+# Ignore Git repository
 .git
+
+# Ignore logs and coverage reports
 npm-debug.log
 .coverage
 .coverage.*
+
+# Ignore environment variables and AWS credentials
 .env
 .aws
-package-lock.json
+
+# (Remove package-lock.json from here)

@@ -10,7 +10,7 @@ export default class LogStorage extends StorageAbstract {
     await this.createIfNotExists();
     if(!await this.columnExists('userId')) {
       await this.knex.schema.alterTable(this.tableName, (table) => {
-        table.integer('userId');
+        table.integer('userId').unsigned();
         table.foreign('userId').references('id').inTable('user');
         table.string('type', 255);
         table.string('group', 255);
