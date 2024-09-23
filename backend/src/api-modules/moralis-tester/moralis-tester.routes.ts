@@ -21,7 +21,6 @@ app.get('/balance', (req: Request, res: Response) => {
         resError(res, e);
     }
 });
-
 app.get('/tokenBalance', (req: Request, res: Response) => {
     try {
         const ethPrice = BlockchainScanFactory.createMoralisETHService();
@@ -30,5 +29,17 @@ app.get('/tokenBalance', (req: Request, res: Response) => {
         resError(res, e);
     }
 });
+
+app.get('/transactionList', (req: Request, res: Response) => {
+    try {
+        const endTime = new Date().getTime();
+        const startTime = endTime - 1000 * 60 * 20;
+        const ethPrice = BlockchainScanFactory.createMoralisETHService();
+        ethPrice.getTransactionList('0xDC24316b9AE028F1497c275EB9192a3Ea0f67022', startTime, endTime).then((data) => res.json(data));
+    } catch (e) {
+        resError(res, e);
+    }
+});
+
 
 export default app;

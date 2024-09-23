@@ -7,11 +7,11 @@ export default class MoralisService {
         });
     }
 
-    async getPrice(address: string) {
+    async getPrice(account: string) {
         const response = await Moralis.EvmApi.token.getTokenPrice({
             "chain": this.chain,
             "include": "percent_change",
-            "address": address,
+            "address": account,
         });
 
         return response.result;
