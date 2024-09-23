@@ -1,6 +1,6 @@
 import WalletStorage, { IWalletStorage } from "../../../shared/storage/tables/wallet.storage";
 import * as schedule from "node-schedule";
-import EtherScanService from "../../../shared/services/blockchain/etherscan/etherscan";
+import EtherScanService from "../../../shared/services/blockchain/scan/etherscan";
 import PaymentIntentionStorage, {
     IPaymentIntentionStorage
 } from "../../../shared/storage/tables/payment-intention.storage";
