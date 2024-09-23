@@ -34,13 +34,6 @@ export default class DatabaseFactory {
         return new PaymentIntentnionStorage();
       case EDatabases.PaymentOnChain:
         return new PaymentOnChainStorage();
-
-      // case EDatabases.PaymentIntention:
-      //   return new WalletStorage();
-      //
-      // case EDatabases.Wallet:
-      //   return new WalletStorage();
-
     }
   }
 
