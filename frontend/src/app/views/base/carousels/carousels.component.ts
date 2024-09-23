@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IconDirective } from '@coreui/icons-angular';
-import { DocsExampleComponent } from '@docs-components/public-api';
+import { DocsExampleComponent } from '@docs-components/public-api-modules';
 import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, ThemeDirective, CarouselComponent, CarouselInnerComponent, CarouselItemComponent, CarouselControlComponent, CarouselIndicatorsComponent, CarouselCaptionComponent } from '@coreui/angular';
 
 @Component({

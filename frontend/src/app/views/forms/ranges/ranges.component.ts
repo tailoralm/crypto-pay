@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DocsExampleComponent } from '@docs-components/public-api';
+import { DocsExampleComponent } from '@docs-components/public-api-modules';
 import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, FormLabelDirective, FormControlDirective } from '@coreui/angular';
 
 @Component({

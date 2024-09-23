@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { DocsExampleComponent } from '@docs-components/public-api';
+import { DocsExampleComponent } from '@docs-components/public-api-modules';
 import {
   BreadcrumbComponent,
   BreadcrumbItemComponent,

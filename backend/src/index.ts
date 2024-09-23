@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import DatabaseFactory from "./shared/storage/database.factory";
-import RoutinesController from "./modules/routines/routines.controller";
-import Routes from "./modules/api/routes";
+import RoutinesController from "./routines/routines.controller";
+import Routes from "./api-modules/routes";
 
 
 async function main(){

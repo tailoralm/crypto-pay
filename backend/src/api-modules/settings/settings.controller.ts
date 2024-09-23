@@ -1,5 +1,5 @@
-import UserStorage, { IUserStorage } from "../../../shared/storage/tables/user.storage";
-import WalletStorage, { IWalletStorage } from "../../../shared/storage/tables/wallet.storage";
+import UserStorage, { IUserStorage } from "../../shared/storage/tables/user.storage";
+import WalletStorage, { IWalletStorage } from "../../shared/storage/tables/wallet.storage";
 
 export default class SettingsController{
     userStorage: UserStorage;

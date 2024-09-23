@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { DocsExampleComponent } from '@docs-components/public-api';
+import { DocsExampleComponent } from '@docs-components/public-api-modules';
 import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective } from '@coreui/angular';
 
 @Component({

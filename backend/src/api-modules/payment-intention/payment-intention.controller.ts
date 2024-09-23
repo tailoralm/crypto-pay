@@ -1,5 +1,5 @@
-import PaymentIntentnionStorage, {IPaymentIntentionStorage} from "../../../shared/storage/tables/payment-intention.storage";
-import WalletStorage from "../../../shared/storage/tables/wallet.storage";
+import PaymentIntentnionStorage, {IPaymentIntentionStorage} from "../../shared/storage/tables/payment-intention.storage";
+import WalletStorage from "../../shared/storage/tables/wallet.storage";
 
 export default class PaymentIntentionController {
     private paymentIntentnionStorage: PaymentIntentnionStorage;

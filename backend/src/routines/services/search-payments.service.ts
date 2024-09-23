@@ -1,10 +1,10 @@
-import WalletStorage, { IWalletStorage } from "../../../shared/storage/tables/wallet.storage";
+import WalletStorage, { IWalletStorage } from "../../shared/storage/tables/wallet.storage";
 import * as schedule from "node-schedule";
-import EtherScanService from "../../../shared/services/blockchain/scan/etherscan";
+import EtherScanService from "../../shared/services/blockchain/scan/etherscan";
 import PaymentIntentionStorage, {
     IPaymentIntentionStorage
-} from "../../../shared/storage/tables/payment-intention.storage";
-import {ITransaction} from "../../../shared/services/blockchain/blockchain.interface";
+} from "../../shared/storage/tables/payment-intention.storage";
+import {ITransaction} from "../../shared/services/blockchain/blockchain.interface";
 
 export default class SearchPaymentsService {
     private walletsToObserve: Promise<IWalletStorage[]>;

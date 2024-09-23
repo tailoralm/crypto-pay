@@ -1,4 +1,4 @@
-import PaymentIntentionController from "../../modules/api/payment-intention/payment-intention.controller";
+import PaymentIntentionController from "../../api-modules/payment-intention/payment-intention.controller";
 
 
 declare global {

@@ -1,4 +1,4 @@
-import WalletStorage, {IWalletStorage} from "../../../shared/storage/tables/wallet.storage";
+import WalletStorage, {IWalletStorage} from "../../shared/storage/tables/wallet.storage";
 
 export default class WalletController {
     private walletStorage: WalletStorage;

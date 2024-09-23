@@ -1,8 +1,8 @@
 import * as schedule from "node-schedule";
-import WalletStorage from "../../shared/storage/tables/wallet.storage";
+import WalletStorage from "../shared/storage/tables/wallet.storage";
 import SearchPaymentsService from "./services/search-payments.service";
-import EtherScanService from "../../shared/services/blockchain/scan/etherscan";
-import PaymentIntentionStorage from "../../shared/storage/tables/payment-intention.storage";
+import EtherScanService from "../shared/services/blockchain/scan/etherscan";
+import PaymentIntentionStorage from "../shared/storage/tables/payment-intention.storage";
 
 export default class RoutinesController {
   private jobs: schedule.Job[] = [];
