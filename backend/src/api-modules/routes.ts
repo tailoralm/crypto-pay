@@ -19,4 +19,6 @@ app.use('/payment-intention', PaymentIntention);
 app.use('/settings', Settings);
 app.use('/wallet', Wallet);
 
+if(process.env.IS_DEV === 'true') app.use('/moralis-tester', require('./moralis-tester/moralis-tester.routes').default);
+
 export default app;
