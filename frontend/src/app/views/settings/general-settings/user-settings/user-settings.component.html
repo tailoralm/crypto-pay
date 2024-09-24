@@ -5,15 +5,15 @@
   <c-card-body>
     <form cForm class="row g-3" [formGroup]="userSettingsForm" (ngSubmit)="onSubmit()">
       <c-col md="12">
-        <label cLabel for="fullName">Company Name (optional)</label>
+        <label cLabel for="fullName">Full Name</label>
         <input cFormControl id="fullName" type="text" formControlName="fullName"/>
       </c-col>
       <c-col md="6">
-        <label cLabel for="email">Email (optional)</label>
+        <label cLabel for="email">Email</label>
         <input cFormControl id="email" type="email" formControlName="email" placeholder="youremail@gmail.com" />
       </c-col>
       <c-col xs="6">
-        <label cLabel for="phone">Phone (optional)</label>
+        <label cLabel for="phone">Phone</label>
         <input cFormControl id="phone" formControlName="phone" placeholder="+55 47 99999-9999" />
       </c-col>
       <c-col xs="12">

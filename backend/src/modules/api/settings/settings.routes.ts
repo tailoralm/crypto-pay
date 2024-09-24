@@ -32,23 +32,5 @@ app.delete('/:id', (req: Request, res: Response) => {
     }
 });
 
-app.post('/wallet', (req: Request, res: Response) => {
-    try {
-        const settingsController = new SettingsController(req.userId);
-        settingsController.insertWallet(req.body).then((data) => res.json(data));
-    } catch (e) {
-        resError(res, e);
-    }
-});
-
-app.put('/wallet', (req: Request, res: Response) => {
-    try {
-        const settingsController = new SettingsController(req.userId);
-        settingsController.updateWallet(req.body).then((data) => res.json(data));
-    } catch (e) {
-        resError(res, e);
-    }
-});
-
 
 export default app;

@@ -5,19 +5,19 @@ import WalletController from "./wallet.controller";
 const app = express();
 // endpoint: /wallet
 
-app.get('/:id', (req: Request, res: Response) => {
+app.get('/list',  (req: Request, res: Response) => {
     try {
         const walletController = new WalletController(req.userId);
-        walletController.get(Number(req.params.id)).then((data) => res.send(data));
+        walletController.getAll().then((data) => res.send(data));
     } catch (e) {
         resError(res, e);
     }
 });
 
-app.get('/list',  (req: Request, res: Response) => {
+app.get('/:id', (req: Request, res: Response) => {
     try {
         const walletController = new WalletController(req.userId);
-        walletController.getAll().then((data) => res.send(data));
+        walletController.get(Number(req.params.id)).then((data) => res.send(data));
     } catch (e) {
         resError(res, e);
     }
