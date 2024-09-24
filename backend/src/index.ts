@@ -8,7 +8,7 @@ async function main(){
   let routinesController: RoutinesController;
   try {
     // Base
-    await DatabaseFactory.buildAllDatabases();
+    if(process.env.UPDATE_DATABASE) await DatabaseFactory.buildAllDatabases();
 
     // Modules
     Routes.listen(3000, () => {

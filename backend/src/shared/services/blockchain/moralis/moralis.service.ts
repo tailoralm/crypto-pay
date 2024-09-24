@@ -1,28 +1,27 @@
 import Moralis from 'moralis';
+Moralis.start({
+    apiKey: process.env.MORALIS_API_KEY,
+});
 
 export default class MoralisService {
-    constructor(private chain: string) {
-        Moralis.start({
-            apiKey: process.env.MORALIS_API_KEY,
-        });
-    }
+    constructor(private chain: string) {}
 
-    async getPrice(account: string) {
+    async getPrice(tokenAddress: string) {
         const response = await Moralis.EvmApi.token.getTokenPrice({
             "chain": this.chain,
             "include": "percent_change",
-            "address": account,
+            "address": tokenAddress,
         });
 
         return response.result;
     }
 
-    async getBalance(account: string) {
+    async getBalance(account: string): Promise<number> {
         const response = await Moralis.EvmApi.balance.getNativeBalance({
             address: account,
             chain: '0x1',
         });
-        return response.result;
+        return (Number(response?.result?.balance) || 0) / 1e18;
     }
 
     async getTokenBalance(account: string, contract: string): Promise<number> {
@@ -51,13 +50,13 @@ export default class MoralisService {
     }
 
 
-    async getTransactionList(address: string, startTime: number, endTime: number) {
+    async getTransactionList(address: string, startTime: Date, endTime: Date) {
         const response = await Moralis.EvmApi.transaction.getWalletTransactions({
             address: address,
             chain: '0x1',
             order: 'DESC',
-            fromDate: startTime.toString(),
-            toDate: endTime.toString(),
+            fromDate: startTime,
+            toDate: endTime,
         });
         return response.result;
     }
@@ -66,8 +65,8 @@ export default class MoralisService {
     async getTransactionTokenList(
         address: string,
         contract: string,
-        startDate: number,
-        endDate: number
+        startDate: Date,
+        endDate: Date
     ) {
         const response = await Moralis.EvmApi.token.getWalletTokenTransfers({
             address: address,
