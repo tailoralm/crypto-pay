@@ -5,33 +5,37 @@ import PaymentIntentionStorage, {
     IPaymentIntentionStorage
 } from "../../shared/storage/tables/payment-intention.storage";
 import {ITransaction} from "../../shared/services/blockchain/blockchain.interface";
+import MoralisService from "../../shared/services/blockchain/moralis/moralis.service";
+import {ETokenContractsETH, TokenContracts} from "../../shared/services/blockchain/tokensContracts.enum";
+import {Erc20Transaction} from "@moralisweb3/common-evm-utils";
 
 export default class SearchPaymentsService {
-    private walletsToObserve: Promise<IWalletStorage[]>;
-    private paymentIntentionOpen: Promise<IPaymentIntentionStorage[]>
-    constructor(private walletStorage: WalletStorage, private paymentIntentionStorage: PaymentIntentionStorage, private etherScanService: EtherScanService) {
+    // private walletsToObserve: Promise<IWalletStorage[]>;
+    // private paymentIntentionOpen: Promise<IPaymentIntentionStorage[]>
+    constructor(private walletStorage: WalletStorage, private paymentIntentionStorage: PaymentIntentionStorage, private moralisEtherService: MoralisService) {
 
     }
 
     run(): Promise<schedule.Job> {
-        return schedule.scheduleJob('', () => {
-            this.walletsToObserve = this.walletStorage.getWalletsToObserve();
+        return schedule.scheduleJob('*/15 * * * *', () => {
             return this.createJob();
         });
     }
 
     async createJob(){
-        const nowTimestamp = (new Date()).getDate();
-        const nowMinesTwenty = nowTimestamp - 1200000;
-        const walletsToObserve = await this.walletsToObserve;
+        const endTime = new Date();
+        const startTime = new Date(endTime.getTime() - 60 * 60000) //1h ago
+        const walletsToObserve = await this.walletStorage.getWalletsToObserve();
 
         for (let wallet of walletsToObserve){
             const paymentIntentionPending = await this.paymentIntentionStorage.getIsPending(wallet.id);
             if (paymentIntentionPending.length === 0) continue;
 
-            let transactions: ITransaction[] = [];
-            if(wallet.chain === 'ETH')
-                transactions = await this.etherScanService.getTransactionListByTimestamp(wallet.walletHash, nowMinesTwenty, nowTimestamp);
+            let transactions: Erc20Transaction[] = [];
+            if(wallet.chain === 'ETH') {
+                const contracts = Object.values(ETokenContractsETH);
+                transactions = await this.moralisEtherService.getTransactionTokenList(wallet.walletHash, contracts, startTime, endTime);
+            }
 
             if (transactions.length === 0) continue;
 
@@ -39,7 +43,7 @@ export default class SearchPaymentsService {
 
             for (let transaction of transactions){
                 for (let paymentIntention of paymentIntentionPending){
-                    if (transaction.value === paymentIntention.value){
+                    if (transaction.value === paymentIntention.value){ //TODO: check if the transaction is the same type
                         await this.paymentIntentionStorage.setAsPaid(paymentIntention.id);
                     }
                 }

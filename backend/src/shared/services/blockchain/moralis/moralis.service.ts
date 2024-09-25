@@ -64,7 +64,7 @@ export default class MoralisService {
 
     async getTransactionTokenList(
         address: string,
-        contract: string,
+        contract: string[],
         startDate: Date,
         endDate: Date
     ) {
@@ -73,7 +73,7 @@ export default class MoralisService {
             chain: '0x1',
             fromDate: startDate.toString(),
             toDate: endDate.toString(),
-            contractAddresses: [contract],
+            contractAddresses: contract,
         });
         return response.result;
     }

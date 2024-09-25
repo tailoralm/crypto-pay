@@ -18,7 +18,6 @@ export default class WalletStorage extends StorageAbstract {
         table.foreign('userId').references('id').inTable('user');
         table.string('walletHash', 255);
         table.string('chain', 50);
-        table.string('chainHash', 255);
         table.integer('observe', 1).defaultTo(1);
         table.decimal('value', 16, 8);
         table.timestamp('createdAt').notNullable().defaultTo(this.knex.fn.now());
@@ -31,7 +30,6 @@ export interface IWalletStorage {
     userId?: number;
     walletHash?: string;
     chain?: string;
-    chainHash?: string;
     observe?: number;
     value?: number;
     createdAt?: number;
