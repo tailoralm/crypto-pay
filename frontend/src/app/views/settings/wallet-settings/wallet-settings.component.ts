@@ -16,7 +16,7 @@ import {
 } from "@coreui/angular";
 import {NgTemplateOutlet} from "@angular/common";
 import {WalletSettingsService} from "./wallet-settings.service";
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-wallet-settings',
@@ -40,7 +40,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
     ButtonCloseDirective,
     ModalTitleDirective,
     FormDirective,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    ReactiveFormsModule
   ],
   templateUrl: './wallet-settings.component.html',
   styleUrl: './wallet-settings.component.scss'
@@ -59,10 +60,9 @@ export class WalletSettingsComponent {
   }
   
   async ngOnInit() {
-    const response = await this.walletSettingsService.getFormData();
+    const response = await this.walletSettingsService.getWalletList();
     console.log(response);
   }
-
 
   onSubmit(){
     console.log(this.newWalletForm.value);

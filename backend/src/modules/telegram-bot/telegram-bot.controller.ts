@@ -7,7 +7,6 @@ export default class TelegramBotController {
     this.bot = new Telegraf(process.env.TELEGRAM_TOKEN);
     this.bot.use(TelegramAuthentication.checkAuthorization);
     this.bot.command('start', this.start);
-    // this.bot.command('status', this.bedroomStatus.bind(this));
     this.bot.launch();
   }
   start(ctx: Context) {

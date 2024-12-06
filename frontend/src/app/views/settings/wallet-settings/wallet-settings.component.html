@@ -50,7 +50,7 @@
       <div class="row g-3">
         <c-col md="4">
           <label cLabel for="chain">Blockchain</label>
-          <select id="chain" aria-label="Default select example" cSelect>
+          <select formControlName="chain" aria-label="Default select example" cSelect>
             <option value="ETHER">ETHER</option>
             <option value="SOL">SOLANA</option>
             <option value="BSC">BSC</option>
@@ -58,11 +58,11 @@
         </c-col>
         <c-col md="8">
           <label cLabel for="description">Description</label>
-          <input cFormControl id="description" type="text" />
+          <input cFormControl formControlName="description" type="text" />
         </c-col>
         <c-col md="12">
           <label cLabel for="wallet">Wallet</label>
-          <input cFormControl id="walletHash" type="text" placeholder="insert your wallet here" />
+          <input cFormControl formControlName="walletHash" type="text" placeholder="insert your wallet here" />
         </c-col>
       </div>
       </c-modal-body>

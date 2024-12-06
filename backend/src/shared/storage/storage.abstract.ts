@@ -1,11 +1,11 @@
-import configuration from './config';
-import Knex from 'knex';
+import knex_db from './database';
+import { Knex } from 'knex';
 
 
 export default abstract class StorageAbstract {
-  knex: Knex.Knex;
+  knex: Knex;
   protected constructor(protected tableName: string) {
-    this.knex = Knex(configuration.development);
+    this.knex = knex_db;
   }
 
   insert(data: any) {

@@ -17,6 +17,7 @@ export default class WalletStorage extends StorageAbstract {
         table.integer('userId').unsigned();
         table.foreign('userId').references('id').inTable('user');
         table.string('walletHash', 255);
+        table.string('description', 255);
         table.string('chain', 50);
         table.string('chainHash', 255);
         table.integer('observe', 1).defaultTo(1);

@@ -7,7 +7,7 @@ import { IWalletSettingsForm } from './wallet-settings.types';
 })
 export class WalletSettingsService extends BaseApiService {
 
-  getFormData(): Promise<IWalletSettingsForm> {
+  getWalletList(): Promise<IWalletSettingsForm> {
     return this.get(`wallet/list`);
   }
   
