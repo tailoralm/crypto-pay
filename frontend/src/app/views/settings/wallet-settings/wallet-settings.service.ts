@@ -11,9 +11,7 @@ export class WalletSettingsService extends BaseApiService {
     return this.get(`wallet/list`);
   }
   
-  async insertWallet(value: IWalletSettingsForm) {
-    console.log(value);
-    await this.post(`wallet` , value);
-    // window.location.reload();
+  insertWallet(value: IWalletSettingsForm) {
+    return this.post(`wallet` , value);
   }
 }

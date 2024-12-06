@@ -65,7 +65,19 @@ export class WalletSettingsComponent {
   }
 
   onSubmit(){
-    console.log(this.newWalletForm.value);
-    this.walletSettingsService.insertWallet(this.newWalletForm.value);
+    try {
+      const value = this.newWalletForm.value;
+      console.log(value);
+  
+      if (!value.description || !value.walletHash || !value.chain) throw new Error('All fields are required');
+      if (((value.chain === 'ETHER' || value.chain === 'BSC') && !validateEthereumAddress(value.walletHash) || (value.chain === 'SOL' && !validateSolanaAddress(value.walletHash)))) throw new Error('Invalid wallet address');
+  
+      this.walletSettingsService.insertWallet(value);
+      window.location.reload();
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
   }
 }
