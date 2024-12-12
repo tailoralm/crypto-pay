@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild,  } from '@angular/core';
 import {
   ButtonCloseDirective,
   ButtonDirective,
@@ -12,11 +12,13 @@ import {
   ModalBodyComponent,
   ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, ModalToggleDirective,
   TableColorDirective,
-  TableDirective
+  TableDirective,
 } from "@coreui/angular";
 import {NgTemplateOutlet} from "@angular/common";
 import {WalletSettingsService} from "./wallet-settings.service";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { validateEthereumAddress, validateSolanaAddress } from './wallet.utils';
+import { AppToastComponent } from 'src/app/shared/components/toast/toast.component';
 
 @Component({
   selector: 'app-wallet-settings',
@@ -41,27 +43,31 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
     ModalTitleDirective,
     FormDirective,
     NgTemplateOutlet,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    AppToastComponent
+],
   templateUrl: './wallet-settings.component.html',
   styleUrl: './wallet-settings.component.scss'
 })
 
 export class WalletSettingsComponent {
+  @ViewChild('toast') toast!: AppToastComponent;
+  
   newWalletForm: FormGroup;
 
   constructor(private walletSettingsService: WalletSettingsService, private fb: FormBuilder) {
     this.walletSettingsService = new WalletSettingsService();
     this.newWalletForm = this.fb.group({
-      description: '',
+      description: 'My wallet',
       walletHash: '',
-      chain: '',
+      chain: 'ETHER',
     });
   }
   
   async ngOnInit() {
     const response = await this.walletSettingsService.getWalletList();
     console.log(response);
+    this.toast.toggleToast();
   }
 
   onSubmit(){
@@ -79,5 +85,4 @@ export class WalletSettingsComponent {
     }
   }
 
-  }
 }
