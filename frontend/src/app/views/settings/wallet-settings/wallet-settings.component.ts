@@ -1,4 +1,4 @@
-import { Component, ViewChild,  } from '@angular/core';
+ import {Component, OnInit, ViewChild,} from '@angular/core';
 import {
   ButtonCloseDirective,
   ButtonDirective,
@@ -14,11 +14,12 @@ import {
   TableColorDirective,
   TableDirective,
 } from "@coreui/angular";
-import {NgTemplateOutlet} from "@angular/common";
-import {WalletSettingsService} from "./wallet-settings.service";
+import { NgTemplateOutlet, CommonModule } from "@angular/common";
+import { WalletSettingsService } from "./wallet-settings.service";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { validateEthereumAddress, validateSolanaAddress } from './wallet.utils';
 import { AppToastComponent } from 'src/app/shared/components/toast/toast.component';
+ import {IWalletSettingsForm} from "./wallet-settings.types";
 
 @Component({
   selector: 'app-wallet-settings',
@@ -44,16 +45,17 @@ import { AppToastComponent } from 'src/app/shared/components/toast/toast.compone
     FormDirective,
     NgTemplateOutlet,
     ReactiveFormsModule,
-    AppToastComponent
+    AppToastComponent,
+    CommonModule
 ],
   templateUrl: './wallet-settings.component.html',
   styleUrl: './wallet-settings.component.scss'
 })
 
-export class WalletSettingsComponent {
+export class WalletSettingsComponent implements OnInit {
   @ViewChild('toast') toast!: AppToastComponent;
-  
   newWalletForm: FormGroup;
+  walletList: IWalletSettingsForm[] = [];
 
   constructor(private walletSettingsService: WalletSettingsService, private fb: FormBuilder) {
     this.walletSettingsService = new WalletSettingsService();
@@ -63,25 +65,25 @@ export class WalletSettingsComponent {
       chain: 'ETHER',
     });
   }
-  
+
   async ngOnInit() {
     const response = await this.walletSettingsService.getWalletList();
     console.log(response);
-    this.toast.toggleToast();
+    this.walletList = response;
   }
 
   onSubmit(){
     try {
       const value = this.newWalletForm.value;
       console.log(value);
-  
+
       if (!value.description || !value.walletHash || !value.chain) throw new Error('All fields are required');
       if (((value.chain === 'ETHER' || value.chain === 'BSC') && !validateEthereumAddress(value.walletHash) || (value.chain === 'SOL' && !validateSolanaAddress(value.walletHash)))) throw new Error('Invalid wallet address');
-  
+
       this.walletSettingsService.insertWallet(value);
       window.location.reload();
     } catch (e) {
-      console.log(e.message);
+      this.toast.error(e.message);
     }
   }
 

@@ -15,22 +15,11 @@
 
       </thead>
       <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>&#64;mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>&#64;fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colSpan="2">Larry the Bird</td>
-        <td>&#64;twitter</td>
+      <tr *ngFor="let wallet of walletList">
+        <th scope="row">{{ wallet.id }}</th>
+        <td>{{ wallet.chain }}</td>
+        <td>{{ wallet.description }}</td>
+        <td>{{ wallet.walletHash }}</td>
       </tr>
       </tbody>
     </table>
@@ -49,7 +38,7 @@
     <c-modal-body>
       <div class="row g-3">
         <c-col md="4">
-          <label cLabel for="chain">Blockchain</label>
+          <label cLabel >Blockchain</label>
           <select formControlName="chain" aria-label="Default select example" cSelect>
             <option value="ETHER">ETHER</option>
             <option value="SOL">SOLANA</option>
@@ -57,11 +46,11 @@
           </select>
         </c-col>
         <c-col md="8">
-          <label cLabel for="description">Description</label>
+          <label cLabel >Description</label>
           <input cFormControl formControlName="description" type="text" />
         </c-col>
         <c-col md="12">
-          <label cLabel for="wallet">Wallet</label>
+          <label cLabel >Wallet</label>
           <input cFormControl formControlName="walletHash" type="text" placeholder="insert your wallet here" />
         </c-col>
       </div>
