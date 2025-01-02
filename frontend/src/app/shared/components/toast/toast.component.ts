@@ -12,7 +12,7 @@ import { ToastSampleIconComponent } from './toast-sample-icon.component';
     selector: 'app-toast',
     templateUrl: './toast.component.html',
     styleUrls: ['./toast.component.scss'],
-    standalone: true,  
+    standalone: true,
     imports: [
       ProgressComponent,
       ToasterComponent,
@@ -26,9 +26,29 @@ export class AppToastComponent {
   position = 'top-end';
   visible = signal(false);
   percentage = signal(0);
+  toastColor = 'info'
+  title = '';
+  message = '';
 
-  toggleToast() {
-    this.visible.update((value) => !value);
+  info(message: string) {
+    this.toastColor = 'info';
+    this.toggleToast('Info', message);
+  }
+
+  warning(message: string) {
+    this.toastColor = 'warning';
+    this.toggleToast('Warning', message);
+  }
+
+  error(message: string) {
+    this.toastColor = 'danger';
+    this.toggleToast('Error', message);
+  }
+
+  toggleToast(title: string, message: string) {
+    this.title = title;
+    this.message = message;
+    this.visible.update(() => true);
   }
 
   onVisibleChange($event: boolean) {
