@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import DatabaseFactory from "./shared/storage/database.factory";
+import { buildAllDatabases } from "./shared/storage/database.factory";
 import RoutinesController from "./modules/routines/routines.controller";
 import Routes from "./modules/api/routes";
 
@@ -8,7 +8,7 @@ async function main(){
   let routinesController: RoutinesController;
   try {
     // Base
-    await DatabaseFactory.buildAllDatabases();
+    await buildAllDatabases();
 
     // Modules
     Routes.listen(3000, () => {

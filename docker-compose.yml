@@ -1,36 +1,31 @@
 services:
-  frontend:
-    build: ./frontend
-    ports:
-      - "4200:4200"
-    command: npm run start:docker
-    restart: always
-    volumes:
-      - ./frontend:/usr/app/frontend
-      - /usr/app/frontend/node_modules
+#  frontend:
+#    build: ./frontend
+#    ports:
+#      - "4200:4200"
+#    command: npm run start:docker
+#    volumes:
+#      - ./frontend:/usr/app/frontend
+#      - ./frontend/node_modules:/usr/app/frontend/node_modules
   backend:
     build: ./backend
     ports:
       - 3000:3000
     command: npm start
     env_file:
-      - ./backend/.env
-    restart: always
+      - ./.env
     volumes:
       - ./backend:/usr/app/backend
-  #   depends_on:
-  #     - db
+    depends_on:
+      - db
+  db:
+    image: mysql:latest
+    restart: always
+    hostname: mysql_db
+    env_file:
+      - ./.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
 
-  # db:
-  #   image: mysql:latest
-  #   restart: always
-  #   hostname: mysql_db
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: '6k126/o97)Gl'
-  #     MYSQL_DATABASE: criptopay
-  #     MYSQL_USER: user
-  #     MYSQL_PASSWORD: 'x0=23]Tg[mlt'
-  #   ports:
-  #     - "3306:3306"
-  #   volumes:
-  #     - ./mysql-data:/var/lib/mysql

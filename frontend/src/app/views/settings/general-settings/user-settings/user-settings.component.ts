@@ -37,9 +37,13 @@ export class UserSettingsComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    const response = this.userSettingsService.getFormData();
-    this.userSettingsForm.setValue(response);
+  async ngOnInit() {
+    const response = await this.userSettingsService.getFormData();
+    this.userSettingsForm.setValue({
+      fullName: response.fullName,
+      email: response.email,
+      phone: response.phone
+    });
   }
 
   onSubmit() {

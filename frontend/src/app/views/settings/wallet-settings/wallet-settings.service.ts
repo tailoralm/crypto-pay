@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
+import { BaseApiService } from 'src/app/shared/services/base-api.service';
+import { IWalletSettingsForm } from './wallet-settings.types';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WalletSettingsService {
-  constructor() { }
+export class WalletSettingsService extends BaseApiService {
 
-  // Métodos do serviço
-  minhaFuncao() {
-    console.log('Esta é uma função do meu serviço');
+  getWalletList(): Promise<IWalletSettingsForm[]> {
+    return this.get(`wallet/list`);
+  }
+
+  insertWallet(value: IWalletSettingsForm) {
+    return this.post(`wallet` , value);
   }
 }

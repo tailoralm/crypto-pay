@@ -10,7 +10,7 @@ export default class ProductStorage extends StorageAbstract {
     await this.createIfNotExists();
     if(!await this.columnExists('userId')) // version 1.0
       await this.knex.schema.alterTable(this.tableName, (table) => {
-        table.integer('userId');
+        table.integer('userId').unsigned();;
         table.foreign('userId').references('id').inTable('user');
         table.string('name', 255);
         table.string('description', 255);

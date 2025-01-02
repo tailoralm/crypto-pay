@@ -1,4 +1,4 @@
-import WalletStorage, { IWalletStorage } from "../../../shared/storage/tables/wallet.storage";
+import WalletStorage from "../../../shared/storage/tables/wallet.storage";
 import * as schedule from "node-schedule";
 import EtherScanService from "../../../shared/services/blockchain/etherscan/etherscan";
 import PaymentIntentionStorage, {
@@ -7,15 +7,12 @@ import PaymentIntentionStorage, {
 import {ITransaction} from "../../../shared/services/blockchain/blockchain.interface";
 
 export default class SearchPaymentsService {
-    private walletsToObserve: Promise<IWalletStorage[]>;
-    private paymentIntentionOpen: Promise<IPaymentIntentionStorage[]>
     constructor(private walletStorage: WalletStorage, private paymentIntentionStorage: PaymentIntentionStorage, private etherScanService: EtherScanService) {
 
     }
 
     run(): Promise<schedule.Job> {
-        return schedule.scheduleJob('', () => {
-            this.walletsToObserve = this.walletStorage.getWalletsToObserve();
+        return schedule.scheduleJob('*/15 * * * *', () => {
             return this.createJob();
         });
     }
@@ -23,7 +20,7 @@ export default class SearchPaymentsService {
     async createJob(){
         const nowTimestamp = (new Date()).getDate();
         const nowMinesTwenty = nowTimestamp - 1200000;
-        const walletsToObserve = await this.walletsToObserve;
+        const walletsToObserve = await this.walletStorage.getWalletsToObserve();
 
         for (let wallet of walletsToObserve){
             const paymentIntentionPending = await this.paymentIntentionStorage.getIsPending(wallet.id);
@@ -39,7 +36,9 @@ export default class SearchPaymentsService {
 
             for (let transaction of transactions){
                 for (let paymentIntention of paymentIntentionPending){
-                    if (transaction.value === paymentIntention.value){
+                    console.log(transaction);
+                    console.log(paymentIntention);
+                    if (transaction.value === paymentIntention.value){ //TODO: Check if the value format is the same
                         await this.paymentIntentionStorage.setAsPaid(paymentIntention.id);
                     }
                 }

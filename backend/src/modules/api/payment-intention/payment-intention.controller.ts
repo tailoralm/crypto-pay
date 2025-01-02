@@ -19,9 +19,6 @@ export default class PaymentIntentionController {
     }
 
     insert(data: IPaymentIntentionStorage) {
-        // get wallet by id
-        // this.walletStorage.selectByUserAndId(this.userId, data.walletId);
-        // check if thers a result
         return this.paymentIntentnionStorage.insert(data);
     }
 

@@ -16,43 +16,16 @@ export enum EDatabases {
   Product = 'product',
 }
 
-export default class DatabaseFactory {
-
-  static getDatabase(database: EDatabases) {
-    switch (database) {
-      case EDatabases.Config:
-        return new ConfigStorage();
-      case EDatabases.User:
-        return new UserStorage();
-      case EDatabases.Log:
-        return new LogStorage();
-      case EDatabases.Wallet:
-        return new WalletStorage();
-      case EDatabases.Product:
-        return new ProductStorage();
-      case EDatabases.PaymentIntention:
-        return new PaymentIntentnionStorage();
-      case EDatabases.PaymentOnChain:
-        return new PaymentOnChainStorage();
-
-      // case EDatabases.PaymentIntention:
-      //   return new WalletStorage();
-      //
-      // case EDatabases.Wallet:
-      //   return new WalletStorage();
-
-    }
+export async function buildAllDatabases() {
+  try {
+    await new ConfigStorage().createOrUpdateThisDatabaseSchema();
+    await new UserStorage().createOrUpdateThisDatabaseSchema();
+    await new LogStorage().createOrUpdateThisDatabaseSchema();
+    await new WalletStorage().createOrUpdateThisDatabaseSchema();
+    await new ProductStorage().createOrUpdateThisDatabaseSchema();
+    await new PaymentIntentnionStorage().createOrUpdateThisDatabaseSchema();
+    await new PaymentOnChainStorage().createOrUpdateThisDatabaseSchema();
+  } catch (error) {
+    console.error(error);
   }
-
-  static async buildAllDatabases() {
-    Object.values(EDatabases).forEach((table: EDatabases) => {
-      try {
-        const database = this.getDatabase(table);
-        database.createOrUpdateThisDatabaseSchema();
-      } catch {
-        console.error(`Error on creating table: ${table}`)
-      }
-    })
-  }
-
 }

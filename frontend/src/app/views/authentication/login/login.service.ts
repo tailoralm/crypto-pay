@@ -28,12 +28,11 @@ export class LoginService extends BaseApiService {
 
   verifyToken(isLoginPage = false) {
     // TODO: verify token with server
-    const userData = this.getUserData();
-    if (!userData.token) {
+    if (!this.userData.token) {
       this.router.navigate(['/login']);
     }
-    console.log(userData);
-    if (isLoginPage && userData.token) {
+    console.log(this.userData);
+    if (isLoginPage && this.userData.token) {
       this.router.navigate(['/dashboard']);
     }
   }

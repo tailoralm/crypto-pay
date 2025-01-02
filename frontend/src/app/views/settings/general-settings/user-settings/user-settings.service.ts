@@ -8,16 +8,13 @@ import {HttpClient} from "@angular/common/http";
 })
 export class UserSettingsService extends BaseApiService {
 
-  getFormData(): IUserSettingsForm {
-    return {
-      fullName: 'Mocked name',
-      email: 'email',
-      phone: '999 999 999'
-    }
+  getFormData(): Promise<IUserSettingsForm> {
+    return this.get(`settings/${this.userData.userId}`);
   }
-
-  saveData(values: IUserSettingsForm) {
-    console.log(this.baseUrl);
+  
+  async saveData(values: IUserSettingsForm) {
     console.log(values);
+    await this.put(`settings/${this.userData.userId}` , values);
+    window.location.reload();
   }
 }
