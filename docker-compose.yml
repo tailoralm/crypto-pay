@@ -1,12 +1,12 @@
 services:
-  frontend:
-    build: ./frontend
-    ports:
-      - "4200:4200"
-    command: npm run start:docker
-    volumes:
-      - ./frontend:/usr/app/frontend
-      - /usr/app/frontend/node_modules
+#  frontend:
+#    build: ./frontend
+#    ports:
+#      - "4200:4200"
+#    command: npm run start:docker
+#    volumes:
+#      - ./frontend:/usr/app/frontend
+#      - ./frontend/node_modules:/usr/app/frontend/node_modules
   backend:
     build: ./backend
     ports:
@@ -28,3 +28,4 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql-data:/var/lib/mysql
+
