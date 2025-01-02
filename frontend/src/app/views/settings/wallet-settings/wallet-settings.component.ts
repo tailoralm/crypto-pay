@@ -68,7 +68,6 @@ export class WalletSettingsComponent implements OnInit {
 
   async ngOnInit() {
     const response = await this.walletSettingsService.getWalletList();
-    console.log(response);
     this.walletList = response;
   }
 
