@@ -1,4 +1,4 @@
-export interface IWalletSettingsForm {
+export interface IWalletSettings {
   id: string;
   chain: string;
   walletHash: string;

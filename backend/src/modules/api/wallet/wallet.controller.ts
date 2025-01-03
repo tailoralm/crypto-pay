@@ -2,6 +2,7 @@ import WalletStorage, {IWalletStorage} from "../../../shared/storage/tables/wall
 
 export default class WalletController {
     private walletStorage: WalletStorage;
+
     constructor(private userId: number) {
         this.walletStorage = new WalletStorage();
     }

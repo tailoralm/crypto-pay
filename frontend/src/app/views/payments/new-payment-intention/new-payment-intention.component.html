@@ -3,29 +3,29 @@
     New Payment
   </c-card-header>
   <c-card-body>
-    <form cForm class="row g-3" [formGroup]="paymentForm">
+    <form cForm class="row g-3" [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
       <c-col md="12">
         <label cLabel for="description">Description</label>
-        <input cFormControl id="description" type="text" />
+        <input cFormControl id="description" formControlName="description" type="text" />
       </c-col>
       <c-col xs="2">
         <label cLabel for="blockchain">
           Blockchain
         </label>
-        <select cSelect id="blockchain">
-          <option value="1">ETH</option>
-          <option value="2">BSC</option>
-          <option value="3">SOL</option>
+        <select cSelect id="blockchain" formControlName="blockchain" (change)="filterWallets()">
+          <option *ngFor="let blockchain of blockchainsList" [value]="blockchain.value">
+            {{ blockchain.label }}
+          </option>
         </select>
       </c-col>
       <c-col xs="10">
         <label cLabel for="wallet">
           Wallet
         </label>
-        <select cSelect id="wallet">
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+        <select cSelect id="wallet" formControlName="wallet">
+          <option *ngFor="let wallet of filteredWallets" [value]="wallet.id">
+            {{ wallet.description }} ({{ wallet.walletHash }})
+          </option>
         </select>
       </c-col>
       <c-col md="2">
@@ -46,3 +46,4 @@
     </form>
   </c-card-body>
 </c-card>
+<app-toast #toast></app-toast>

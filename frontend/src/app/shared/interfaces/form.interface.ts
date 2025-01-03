@@ -1,8 +1,4 @@
 export interface ISelect {
-  name: string;
+  label: string;
   value: string;
-}
-
-export interface IWallet extends ISelect{
-  blockchain: string;
 }

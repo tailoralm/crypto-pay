@@ -1,21 +1,29 @@
 import { Injectable } from '@angular/core';
 import {IFormData} from "./new-payment-intention.types";
+import {IWalletSettings} from "../../../shared/interfaces/wallet.interface";
+import {BaseApiService} from "../../../shared/services/base-api.service";
+import {ISelect} from "../../../shared/interfaces/form.interface";
 
 @Injectable({
   providedIn: 'root'
 })
-export class NewPaymentIntentionService {
+export class NewPaymentIntentionService extends BaseApiService {
 
-  constructor() { }
-
-  getFormData(): IFormData {
-    return {
-      blochckains: [{name: 'Ethereum', value: 'ETH'}, {name: 'Solana', value: 'SOL'}, {name: 'BinanceSC', value: 'BSC'}],
-      wallets: [{name: 'Wallet ETH', value: 'ETH', blockchain: 'ETH'}, {name: 'Wallet ETH2', value: 'ETH2', blockchain: 'ETH'}, {name: 'Wallet SOL', value: 'SOL', blockchain: 'SOL'}],
+  async getFormData(): Promise<IFormData> {
+    const wallets: IWalletSettings[] = await this.get(`wallet/list`);
+    const blockchains: ISelect[] = [];
+    for (const wallet of wallets) {
+      if (!blockchains.some(blockchain => blockchain.value === wallet.chain)) {
+        blockchains.push({label: wallet.chain, value: wallet.chain});
+      }
     }
+    return {
+      blockchains,
+      wallets
+    };
   }
 
   createPaymentIntention(values: any) {
-    console.log(values);
+    return this.post('payment-intention', values);
   }
 }

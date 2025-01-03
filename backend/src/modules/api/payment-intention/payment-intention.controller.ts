@@ -1,5 +1,8 @@
-import PaymentIntentnionStorage, {IPaymentIntentionStorage} from "../../../shared/storage/tables/payment-intention.storage";
+import PaymentIntentnionStorage, {
+    IPaymentIntentionStorage
+} from "../../../shared/storage/tables/payment-intention.storage";
 import WalletStorage from "../../../shared/storage/tables/wallet.storage";
+import {add, formatISO9075} from "date-fns";
 
 export default class PaymentIntentionController {
     private paymentIntentnionStorage: PaymentIntentnionStorage;
@@ -18,8 +21,17 @@ export default class PaymentIntentionController {
         return this.paymentIntentnionStorage.selectByUserId(this.userId);
     }
 
-    insert(data: IPaymentIntentionStorage) {
-        return this.paymentIntentnionStorage.insert(data);
+    insert(data: any) {
+        const paymentIntention: IPaymentIntentionStorage = {
+            walletId: data.wallet,
+            value: data.value,
+            description: data.description,
+            endDate: data.endDate,
+        }
+        if (!paymentIntention.endDate) {
+            paymentIntention.endDate = formatISO9075(add(new Date(), {days: 1}));
+        }
+        return this.paymentIntentnionStorage.insert(paymentIntention);
     }
 
     update(data: IPaymentIntentionStorage) {
@@ -27,6 +39,6 @@ export default class PaymentIntentionController {
     }
 
     delete(id: number) {
-        return this.paymentIntentnionStorage.updateById(id, { status: 'CANCELED' });
+        return this.paymentIntentnionStorage.updateById(id, {status: 'CANCELED'});
     }
 }

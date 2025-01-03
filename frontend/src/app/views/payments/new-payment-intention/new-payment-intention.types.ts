@@ -1,6 +1,7 @@
-import {ISelect, IWallet} from "../../../shared/interfaces/form.interface";
+import { ISelect } from "../../../shared/interfaces/form.interface";
+import {IWalletSettings} from "../../../shared/interfaces/wallet.interface";
 
 export interface IFormData {
-  blochckains: ISelect[];
-  wallets: IWallet[];
+  blockchains: ISelect[];
+  wallets: IWalletSettings[];
 }
